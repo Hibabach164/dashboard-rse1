@@ -37,6 +37,10 @@ col_kpi1, col_kpi2 = st.columns(2)
 col_kpi1.metric("Score RSE moyen", f"{filtered_df['Score RSE'].mean():.2f}")
 col_kpi2.metric("Seuil de performance", seuil)
 
+score_moyen = filtered_df["Score RSE"].mean()
+if score_moyen < seuil:
+    st.warning(f"⚠️ Seuil non atteint : le score moyen RSE est de {score_moyen:.2f}, inférieur au seuil de {seuil}.")
+
 # Graphique: Moyenne par entreprise
 st.subheader("Classement des entreprises selon leur Score RSE moyen")
 mean_scores = df.groupby("Entreprise")["Score RSE"].mean().sort_values(ascending=False)
